@@ -20,4 +20,4 @@ for res in r.json()["restaurants"]:
 	for review in reviews.json()["user_reviews"]:
 		rev = Review.objects.create(rest=restaurant,user=review["review"]["user"]["name"],rating=review["review"]["rating"],rev_text=review["review"]["review_text"])
 		rev.save()
-	print res["restaurant"]["name"]
+	print "Getting reviews for ",res["restaurant"]["name"]
