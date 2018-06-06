@@ -17,3 +17,11 @@ After installing django and cloning the project, you need to do migrations using
 After successfull migrations, you may start server:
 
 `python manage.py runserver`
+
+To properly check whether Restaurant details and reviews are being fetched or not, you may need to create a superuser. Just run the following command and register yourself as superuser:
+
+`python manage.py createsuperuser`
+
+
+
+All the screenshots are provided in the screenshot folder.
