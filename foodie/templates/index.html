@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    {% load staticfiles %}
+    	<link href="{% static "fonts/icon.css"%}" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 80%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 5%;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+  	<h1>The Best Restaurants in Bengaluru</h1>
+  	<div id="map"></div>
+	<div class="row">
+		{% for r in resp %}
+		<div class="col s12 m6 l4">
+		<div class="card">
+	    <div class="card-image waves-effect waves-block waves-light">
+	      <img class="activator" src="{{r.img_url}}">
+	    </div>
+	    <div class="card-content">
+	      <span class="card-title activator grey-text text-darken-4">{{r.name}}<i class="material-icons right">more_vert</i></span>
+	      <p></p>
+	    </div>
+	    <div class="card-reveal">
+	      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+	      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+	    </div>
+	  </div>
+	</div>
+		{% endfor %}
+	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "js/materialize.min.js"%}">
+	</script>
+    <script>
+
+      function initMap() {
+        
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: {lat:12.9716,lng:77.5946}
+        });
+        $.ajax({
+        type:"GET",
+        url: "/getlocations",
+        
+        success: function( data ) 
+        {
+            var response = JSON.parse(data);
+            for (r in response){
+            	// alert("lat:"+response[r].lat+" lon:"+response[r].lon);
+            	var mylat = parseFloat(response[r].lat);
+            	var mylon = parseFloat(response[r].lon);
+            	var marker2 = new google.maps.Marker({
+		        position: {lat:mylat,lng:mylon},
+		        map: map,
+		        title: response[r].name
+		        });
+            }
+        },
+     });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmFILYeVhc7PiIPHBkzVcf5R_XtVNLsfI&callback=initMap">
+    </script>
+  </body>
+</html>
