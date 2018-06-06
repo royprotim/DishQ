@@ -11,6 +11,7 @@ After successfully cloning the project you just need to replace Google API key a
 After installing django and cloning the project, you need to do migrations using following commands in the terminal:
 
 `python manage.py makemigrations`
+
 `python manage.py migrate`
 
 After successfull migrations, you may start server:
